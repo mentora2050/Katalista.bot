@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>اختبار Katalista API</title>
+</head>
+<body>
+  <h2>اختبار API Katalista</h2>
+  <input id="msg" type="text" placeholder="اكتب رسالتك هنا" style="width:300px;">
+  <button onclick="sendMessage()">Send</button>
+  <p id="response" style="margin-top:10px; font-weight:bold;"></p>
+
+  <script>
+    async function sendMessage() {
+      const message = document.getElementById("msg").value;
+      if (!message) {
+        document.getElementById("response").innerText = "اكتب رسالة أولاً!";
+        return;
+      }
+
+      try {
+        const res = await fetch("https://"https://katalista-bot.onrender.com/chat"", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+        const data = await res.json();
+        document.getElementById("response").innerText = JSON.stringify(data);
+      } catch (err) {
+        document.getElementById("response").innerText = "في مشكلة في الاتصال بالـ API!";
+      }
+    }
+  </script>
+</body>
+</html>
